@@ -1,0 +1,131 @@
+!<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JS Handler TEST</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script type=text/javascript src="{{url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        //console.log(getCookie("ga"));
+    </script>
+</head>
+<body>
+    <h1>테스트 중입니다!</h1>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/NzrbT5yyQpo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>
+    <video width="320" height="240" controls>
+        <source src="{{url_for('static', filename='video/movie.mp4') }}" type="video/mp4">
+      Your browser does not support the video tag.
+      </video>
+    {% if name %}
+        <h1>Hello {{ name }}!</h1>
+    {% else %}
+        <h1>Hello, World!</h1>
+    {% endif %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        if (document.addEventListener) {
+            document.addEventListener("DOMContentLoaded", function () {
+                document.removeEventListener("DOMContentLoaded", arguments.callee, false);
+                domReady();
+            }, false);
+        } 
+        // Internet Explorer
+        else if (document.attachEvent) {
+            document.attachEvent("onreadystatechange", function () {
+                if (document.readyState === "complete") {
+                    document.detachEvent("onreadystatechange", arguments.callee);
+                    domReady();
+                }
+            });
+        }
+        
+        //DOM이 모두 로드 되었을 때
+        function domReady () {
+            var vs = document.getElementsByTagName("iframe")[0].contentWindow.document.getElementsByTagName("video")[0];
+            
+            var v = document.getElementsByTagName("video")[0];
+            
+            console.log("vs!", vs);
+
+            var currentVolumn = v.volume;
+
+            v.onvolumechange = () => {
+            if (v.volume > currentVolumn) { 
+                console.log('Vol UP!') 
+            } else if (v.volume < currentVolumn){
+                console.log("Vol Down")
+            } else if (v.muted) {
+                console.log("muted!")
+            } else { console.log('unmuted!')}
+            console.log(v.volume);
+            currentVolumn = v.volume;
+            }
+
+            console.log(getCookie("ga"));
+            console.log(navigator.userAgent);
+            console.log(navigator.language);
+            console.log(document.URL);
+            console.log(document.referrer);
+            console.log(document.title);
+            console.log(window.history.length);
+            console.log(window.outerWidth, window.outerHeight);
+            console.log(new Date().getTime());
+
+            $.getJSON("https://jsonip.com?callback=?", function(data) {
+                console.log("Your IP address is :- " + data.ip)
+            });
+
+            v.onplay = () => {
+                console.log('onplay',v.currentTime);
+            }
+            window.onblur = () => { console.log("ㅠㅠㅠ")}
+            window.onfocus = () => { console.log("welcome back!") }
+            c_time = v.currentTime
+            v.onseeking = () => {
+                console.log('seeking', v.currentTime);
+            }
+            var times = new Date().getTime()
+            var a_data = {
+                user_agent:navigator.userAgent,
+                user_uid:getCookie("ga"),
+                timestamp: times,
+            }
+
+            const url = 'http://127.0.0.1:5000/view'
+            let params = {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(a_data)
+            }
+            fetch(url, params)
+            .then((response)=>{console.log(params)})
+            .catch((err)=>{console.log(err)})
+
+
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://127.0.0.1:5000/view",
+                "method": "POST",
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "processData": false,
+                "data": JSON.stringify(a_data)
+              }
+              
+            $.ajax(settings).done(function (response) {
+            console.log(response);
+            });
+
+        }
+    </script>
+</body>
+</html>
