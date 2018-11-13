@@ -209,8 +209,8 @@
                 <h6>총 집계수</h6>
             </div>
             <div class="rating-body">
-                <div class="chart-wrapper">
-                    
+                <div class="chart-wrapper" style="position: relative; ">
+                    <canvas id="TotalCountChart"></canvas>
                 </div>
             </div>
         </div>
@@ -218,11 +218,11 @@
 
         <div class="rating-wrapper col-sm-6">
             <div class="rating-header">
-                <h6>분별 시청률</h6>
+                <h6>성별 시청률</h6>
             </div>
             <div class="rating-body">
-                <div class="chart-wrapper">
-
+                <div class="chart-wrapper" style="display:flex; justify-content:center; align-items:center;">
+                    <canvas id="SexChart"></canvas>
                 </div>
             </div>
         </div>
@@ -233,7 +233,7 @@
                 </div>
                 <div class="rating-body">
                     <div class="chart-wrapper">
-    
+                        
                     </div>
                 </div>
             </div>
@@ -250,6 +250,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <script>
         var ctx = document.getElementById("myChart");
+        var ctx2 = document.getElementById("SexChart");
+        var ctx3 = document.getElementById("TotalCountChart");
         Chart.defaults.global.legend.display = false; 
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -257,7 +259,7 @@
                 labels: [1,2,3,4,5,6,7,8,9,10],
                 datasets: [{
                     label: 'd',
-                    data: [0.5, 0.1, 0.3, 0.33, 0.44, 0.55, 0.4, 0.2, 0.11, 0.3],
+                    data: [0.5, 0.1, 0.3, 0.33, 0.44, 0.65, 0.4, 0.2, 0.11, 0.3],
                     backgroundColor: [
                         '#f28cec'
                     ],
@@ -292,6 +294,75 @@
                 }
             }
         });
+        
+        var sex_data = [57, 43, 2]
+        
+        var sexChart = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['여성', '남성', '집계불가'],
+                datasets: [{
+                    data: sex_data,
+                    backgroundColor: [
+                        '#84e6ff', '#5380ff', '#f6f8fc'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                }
+            }
+        })
+        
+        
+        var tc_datasets = [{
+                            label: '나혼자산다',
+                            data: [1024, 1056, 1087, 1200, 1400, 1300, 1500, 1600, 1670, 1800],
+                            backgroundColor: '#5380ff'
+                        },
+                        {
+                            label: '신서유기',
+                            data: [1057, 1021, 1300, 1300, 1250, 1400, 1600, 1520, 1550, 1700],
+                            backgroundColor: '#f28cec'  
+                        }
+                        ]
+
+        var totalCountChart = new Chart(ctx3, {
+            type: 'bar',
+            label: 'TotalCount',
+            data: {
+                labels: ['JAN','FEB','MAR','APR','MAY','JUN','JLY','AUG','SEP','OCT'],
+                datasets: tc_datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }   
+                    }]
+                },
+                legend: {
+                    display: true
+                }
+            }
+        })
+        totalCountChart.canvas.parentNode.style.height = '400px';
     </script>
 </body>
 </html>
+
+

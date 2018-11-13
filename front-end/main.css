@@ -333,7 +333,12 @@ div.rating-body {
 #myChart {
     height: 270px !important;
 }
+#TotalCountChart {
+/*    height: 319px !important; */
+}
+#SexChart {
 
+}
 .nav-link.active {
     font-size: 16px;
     font-weight: normal;
