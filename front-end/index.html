@@ -173,21 +173,16 @@
     <div class="row">
         <div class="rating-wrapper col-sm-12">
             <div class="rating-header">
-                <h6>분별 시청률</h6>
+                <h6>회차 내 시청률 (min) &nbsp&nbsp&nbsp&nbsp 
+                    <a id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
+                            <span class="badge badge-pill badge-primary">본방 데이터</span> </a> &nbsp&nbsp
+        
+                    <a id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+                            <span class="badge badge-pill badge-light">온라인 플랫폼</span> </a>          
+                </h6>
             </div>
             <div class="rating-body">
                 <div class="chart-wrapper">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
-                    </li>
-                </ul>
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active chart-container" style="position: relative; max-height:400px" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <canvas id="myChart"></canvas>
